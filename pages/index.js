@@ -12,7 +12,10 @@ export default function Home({ posts }) {
           name="description"
           content="Graphql Blog App created with NextJS for web, ios and android"
         />
-        <meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
+        <meta
+          name="viewport"
+          content="width=devise-width, initial-scale=1, viewport-fit=cover"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <FeaturedPosts />
