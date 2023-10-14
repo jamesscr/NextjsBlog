@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">JaBlog</string>
-    <string name="title_activity_main">JaBlog</string>
-    <string name="package_name">com.jablog.app</string>
-    <string name="custom_url_scheme">com.jablog.app</string>
-</resources>
