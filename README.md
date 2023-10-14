@@ -21,4 +21,25 @@ pnpm create next-app -- --example with-tailwindcss with-tailwindcss-app
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-# NextjsBlog
+
+## NextJS for IOS and ANDROID new project
+
+```bash
+# initialized at first
+npx cap init
+# and
+yarn add @capacitor/core @capacitor/ios @capacitor/android
+# if ios then
+npx cap add ios
+# if android
+npx cap add android
+```
+
+## To run For IOS and ANDROID
+
+```bash
+# for ios
+npx cap open ios
+# for android
+npx cap open android
+```

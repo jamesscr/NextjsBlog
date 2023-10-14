@@ -2,11 +2,17 @@ import Head from 'next/head'
 import { PostCard, Categories, PostWidget } from '../components'
 import { getPosts } from '../services'
 import { FeaturedPosts } from '../sections/index'
+
 export default function Home({ posts }) {
   return (
     <div className="container mx-auto mb-8 px-2">
       <Head>
         <title>Graphql Blog App</title>
+        <meta
+          name="description"
+          content="Graphql Blog App created with NextJS for web, ios and android"
+        />
+        <meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <FeaturedPosts />
