@@ -1,71 +1,15 @@
 import React from 'react'
 import moment from 'moment'
+import { RichText } from '@graphcms/rich-text-react-renderer'
 
 const PostDetail = ({ post }) => {
-  const getContentFragment = (index, text, obj, type) => {
-    let modifiedText = text
-
-    if (obj) {
-      if (obj.bold) {
-        modifiedText = <b key={index}>{text}</b>
-      }
-
-      if (obj.italic) {
-        modifiedText = <em key={index}>{text}</em>
-      }
-
-      if (obj.underline) {
-        modifiedText = <u key={index}>{text}</u>
-      }
-    }
-
-    switch (type) {
-      case 'heading-three':
-        return (
-          <h3 key={index} className="mb-4 text-xl font-semibold">
-            {modifiedText.map((item, i) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </h3>
-        )
-      case 'paragraph':
-        return (
-          <p key={index} className="mb-8">
-            {modifiedText.map((item, i) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </p>
-        )
-      case 'heading-four':
-        return (
-          <h4 key={index} className="text-md mb-4 font-semibold">
-            {modifiedText.map((item, i) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </h4>
-        )
-      case 'image':
-        return (
-          <img
-            key={index}
-            alt={obj.title}
-            height={obj.height}
-            width={obj.width}
-            src={obj.src}
-          />
-        )
-      default:
-        return modifiedText
-    }
-  }
-
   return (
     <div className="mb-8 rounded-lg bg-white pb-12 shadow-lg lg:p-8">
       <div className="relative mb-6 overflow-hidden shadow-md">
         <img
           src={post.featuredImage.url}
           alt={post.title}
-          className="odject-top h-full rounded-t-lg"
+          className="h-full w-full rounded-t-lg object-top"
         />
       </div>
       <div className="px-4 lg:px-0">
@@ -102,14 +46,42 @@ const PostDetail = ({ post }) => {
             </span>
           </div>
         </div>
+
         <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
-        {/* {console.log(post.content.raw)} */}
-        {post.content.raw.children.map((typeObj, index) => {
-          const children = typeObj.children.map((item, itemIndex) =>
-            getContentFragment(itemIndex, item.text, item)
-          )
-          return getContentFragment(index, children, typeObj, typeObj.type)
-        })}
+
+        <div className="prose prose-lg max-w-none">
+          <RichText
+            content={post.content.raw}
+            renderers={{
+              a: ({ href, children }) => (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline hover:text-blue-800"
+                >
+                  {children}
+                </a>
+              ),
+              h3: ({ children }) => (
+                <h3 className="mb-4 text-xl font-semibold">{children}</h3>
+              ),
+              h4: ({ children }) => (
+                <h4 className="text-md mb-4 font-semibold">{children}</h4>
+              ),
+              p: ({ children }) => <p className="mb-4">{children}</p>,
+              img: ({ src, alt, width, height }) => (
+                <img
+                  src={src}
+                  alt={alt}
+                  width={width}
+                  height={height}
+                  className="my-4"
+                />
+              ),
+            }}
+          />
+        </div>
       </div>
     </div>
   )
