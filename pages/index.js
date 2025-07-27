@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { PostCard, Categories, PostWidget } from '../components'
 import { getPosts } from '../services'
 import { FeaturedPosts } from '../sections/index'
+import Script from 'next/script'
 
 export default function Home({ posts }) {
   return (
@@ -18,11 +19,12 @@ export default function Home({ posts }) {
           content="width=devise-width, initial-scale=1, viewport-fit=cover"
         />
         <link rel="icon" href="/favicon.ico" />
-        <script
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9439475497990876"
-          crossorigin="anonymous"
-        ></script>
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+        />
       </Head>
       <FeaturedPosts />
       {/* Bloc publicitaire AdSense */}

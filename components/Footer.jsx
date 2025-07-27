@@ -12,14 +12,20 @@ const Footer = () => {
       <footer className="bg-transparent py-6 text-center text-sm text-white">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-4">
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/privacy-policy">
-              <a className="transition hover:text-blue-300">Privacy Policy</a>
+            <Link
+              href="/privacy-policy"
+              className="transition hover:text-blue-300"
+            >
+              Privacy Policy
             </Link>
-            <Link href="/terms-of-use">
-              <a className="transition hover:text-blue-300">Terms of Use</a>
+            <Link
+              href="/terms-of-use"
+              className="transition hover:text-blue-300"
+            >
+              Terms of Use
             </Link>
-            <Link href="/contact">
-              <a className="transition hover:text-blue-300">Contact</a>
+            <Link href="/contact" className="transition hover:text-blue-300">
+              Contact
             </Link>
           </div>
           <p className="mt-2 text-xs text-white">
