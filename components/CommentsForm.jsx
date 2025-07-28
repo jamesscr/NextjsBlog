@@ -3,7 +3,7 @@ import { submitComment } from '../services'
 
 const CommentsForm = ({ slug }) => {
   const [error, setError] = useState(false)
-  const [localStorage, setLocalStorage] = useState(null)
+  // const [localStorage, setLocalStorage] = useState(null)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const commentEl = useRef()
   const nameEl = useRef()
@@ -34,7 +34,7 @@ const CommentsForm = ({ slug }) => {
       window.localStorage.removeItem('name', name)
       window.localStorage.removeItem('email', email)
     }
-    submitComment(commentObj).then((res) => {
+    submitComment(commentObj).then(() => {
       setShowSuccessMessage(true)
       setTimeout(() => {
         setShowSuccessMessage(false)
@@ -57,14 +57,14 @@ const CommentsForm = ({ slug }) => {
       </div>
       <div className="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
         <input
-          className="w-full rounded-lg bg-gray-100 py-2 px-4 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
+          className="w-full rounded-lg bg-gray-100 px-4 py-2 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
           type="text"
           ref={nameEl}
           placeholder="Name"
           name="name"
         />
         <input
-          className="w-full rounded-lg bg-gray-100 py-2 px-4 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
+          className="w-full rounded-lg bg-gray-100 px-4 py-2 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
           type="text"
           ref={emailEl}
           placeholder="Email"

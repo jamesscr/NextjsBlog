@@ -19,13 +19,13 @@ export default function Home({ posts }) {
           content="width=devise-width, initial-scale=1, viewport-fit=cover"
         />
         <link rel="icon" href="/favicon.ico" />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9439475497990876"
-          strategy="lazyOnload"
-          crossOrigin="anonymous"
-        />
       </Head>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9439475497990876"
+        strategy="lazyOnload"
+        crossOrigin="anonymous"
+      />
       <FeaturedPosts />
       {/* Bloc publicitaire AdSense */}
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">

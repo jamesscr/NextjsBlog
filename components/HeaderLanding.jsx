@@ -28,11 +28,13 @@ const HeaderLanding = () => {
               </span>
             </Link>
           ))}
-          {/* <Link key={category.slug} href={`/category/${category.slug}`}>
+          {categories.map((category) => (
+            <Link key={category.slug} href={`/category/${category.slug}`}>
               <span className="md-2 ml-4 cursor-pointer align-middle font-semibold text-white md:float-right">
                 {category.name}
               </span>
-          </Link> */}
+            </Link>
+          ))}
         </div>
       </div>
     </div>

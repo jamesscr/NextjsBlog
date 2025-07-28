@@ -1,25 +1,28 @@
 import React from 'react'
 import moment from 'moment'
 import { RichText } from '@graphcms/rich-text-react-renderer'
+import Image from 'next/image'
 
 const PostDetail = ({ post }) => {
   return (
     <div className="mb-8 rounded-lg bg-white pb-12 shadow-lg lg:p-8">
       <div className="relative mb-6 overflow-hidden shadow-md">
-        <img
+        <Image
           src={post.featuredImage.url}
           alt={post.title}
-          className="h-full w-full rounded-t-lg object-top"
+          width={1200}
+          height={675}
+          className="rounded-t-lg object-top"
         />
       </div>
       <div className="px-4 lg:px-0">
         <div className="mb-8 flex w-full items-center">
           <div className="mb-4 mr-8 flex w-full items-center lg:mb-0 lg:w-auto">
-            <img
+            <Image
               src={post.author.photo.url}
               alt={post.author.name}
-              height="30px"
-              width="30px"
+              height={30}
+              width={30}
               className="rounded-full align-middle"
             />
             <p className="ml-2 inline align-middle text-lg text-gray-700">
@@ -76,12 +79,15 @@ const PostDetail = ({ post }) => {
               ),
               p: ({ children }) => <p className="mb-4">{children}</p>,
               img: ({ src, alt, width, height }) => (
-                <img
+                <Image
                   src={src}
                   alt={alt}
-                  width={width}
-                  height={height}
-                  className="my-4"
+                  width={width || 600}
+                  height={height || 400}
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                  }}
                 />
               ),
             }}
