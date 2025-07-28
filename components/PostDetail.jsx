@@ -69,6 +69,11 @@ const PostDetail = ({ post }) => {
               h4: ({ children }) => (
                 <h4 className="text-md mb-4 font-semibold">{children}</h4>
               ),
+              h2: ({ children }) => (
+                <h2 className="mb-5 text-2xl font-bold text-gray-800">
+                  {children}
+                </h2>
+              ),
               p: ({ children }) => <p className="mb-4">{children}</p>,
               img: ({ src, alt, width, height }) => (
                 <img
