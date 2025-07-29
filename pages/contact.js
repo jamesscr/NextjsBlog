@@ -1,34 +1,84 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback, useEffect } from 'react'
+import debounce from 'lodash/debounce'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState(null)
+  const [errors, setErrors] = useState({})
+
+  useEffect(() => {
+    if (status) {
+      const timer = setTimeout(() => {
+        setStatus(null)
+      }, 5000) // Clear status after 5 seconds
+
+      return () => clearTimeout(timer)
+    }
+  }, [status])
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }))
+    // Clear the error for this field when the user starts typing
+    if (errors[name]) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: null,
+      }))
+    }
   }
 
-  const handleSubmit = async (e) => {
+  const validateForm = () => {
+    const newErrors = {}
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(form.email)) {
+      newErrors.email = 'Invalid email address'
+    }
+    if (form.message.length > 500) {
+      newErrors.message = 'Message is too long (max 500 characters)'
+    }
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const debouncedSubmit = useCallback(
+    debounce(async () => {
+      if (!validateForm()) return
+
+      setLoading(true)
+      // Remove this line: setStatus(null)
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...form,
+            subject: `Message from ${form.name} vivilx`,
+          }),
+        })
+
+        const data = await res.json()
+        setStatus(data.success ? 'success' : 'error')
+        if (data.success) setForm({ name: '', email: '', message: '' })
+      } catch (error) {
+        setStatus('error')
+        console.error('Network error:', error)
+      } finally {
+        setLoading(false)
+      }
+    }, 300),
+    [form]
+  )
+
+  const handleSubmit = (e) => {
     e.preventDefault()
-    setLoading(true)
-    setStatus(null)
-
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...form,
-        subject: `Message from ${form.name} vivilx`,
-      }),
-    })
-
-    const data = await res.json()
-    setStatus(data.success ? 'success' : 'error')
-    setLoading(false)
-    if (data.success) setForm({ name: '', email: '', message: '' })
+    debouncedSubmit()
   }
 
   return (
@@ -78,7 +128,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={loading}
-              className="rounded bg-blue-500 py-2 px-6 font-medium text-white transition hover:bg-blue-600 disabled:opacity-50"
+              className="rounded bg-blue-500 px-6 py-2 font-medium text-white transition hover:bg-blue-600 disabled:opacity-50"
             >
               {loading ? 'Sending...' : 'Send'}
             </button>
