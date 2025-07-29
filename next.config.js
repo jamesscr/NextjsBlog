@@ -9,6 +9,20 @@ const withPWA = require('next-pwa')({
         cacheName: 'google-adsense',
       },
     },
+    {
+      urlPattern: /\.(?:css|less|scss|sass)$/,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'css-cache',
+      },
+    },
+    {
+      urlPattern: /_next\/data\/.+\/.+\.json$/,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'next-data',
+      },
+    },
   ],
 })
 
