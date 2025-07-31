@@ -81,6 +81,8 @@ const FeaturedPosts = () => {
         customRightArrow={customRightArrow}
         responsive={responsive}
         itemClass="px-4"
+        removeArrowOnDeviceType={['tablet', 'mobile']}
+        ssr={false} // Add this line
       >
         {dataLoaded &&
           featuredPosts.map((post, index) => (
